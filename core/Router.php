@@ -10,18 +10,25 @@ class Router
 
         switch ($url) {
             case '/':
-                $controllerName = 'App\controllers\HomeController';
+                $controllerName = 'App\Controllers\HomeController';
                 $actionName = 'index';
                 break;
-            case '/register':
-                $controllerName = 'App\controllers\AuthController';
-                $actionName = 'register';
+            case '/tweet':
+                $controllerName = 'App\Controllers\DashController';
+                $actionName = 'tweet';
                 break;
+            case '/dash':
+                $controllerName = 'App\Controllers\AuthController';
+                $actionName = 'dash';
+            break;
             case '/login':
-                $controllerName = 'App\controllers\AuthController';
+                $controllerName = 'App\Controllers\AuthController';
                 $actionName = 'login';
                 break;
-             //Adicionar novas rotas aqui....
+            case '/register':
+                $controllerName = 'App\Controllers\AuthController';
+                $actionName = 'register';
+                break;
             default:
                 http_response_code(404);
                 echo "Página não encontrada!";

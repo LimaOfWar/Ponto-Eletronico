@@ -8,6 +8,10 @@ use Core\Database;
 class AuthController extends Controller
 {
 
+   public function dash(){
+     $this->view("/dash/index");
+   }
+
   public function register(){
 
     if($_SERVER['REQUEST_METHOD'] === "POST"){
@@ -25,7 +29,6 @@ class AuthController extends Controller
       $stm->bindParam(":name", $name);
       $stm->bindParam(":username", $username);
       $stm->bindParam(":email", $email);
-      
       $stm->bindParam(":password", $hash_password);
       
         if($stm->execute()) {
@@ -39,28 +42,30 @@ class AuthController extends Controller
   public function login()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $username = $_POST['username'];
-      $password = $_POST['password'];
+      $username = $_POST['userrname'];
+      $password = $_POST['password']; 
 
-      $db = Database::connect();
-      $stm = $db->prepare("SELECT * FROM users WHERE username = :username");
-
+      $db = Database ::connect();
+      $stm = $db->prepare("SELECT * FROM users WHERE username = :username"); 
+    
       $stm->bindParam(":username", $username);
       $stm->execute();
 
-      $user = $stm->fetch();
+      $user = $stm->fetch(); 
       session_start();
-
       if($user && password_verify($password, $user['password'])){
 
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['name'] = $user['name'];
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['user_id'] = $name['id'];
+        $_SESSION['name'] = $name['name'];
+        $_SESSION['username'] = $username['username'];
 
         $this->redirect('/dash');
 
+
       }
+
     }
+
     $this->view('auth/login');
   }
 }
